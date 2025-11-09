@@ -14,8 +14,11 @@
     "@emotion/styled": "^11.14.1",
     "@mui/material": "^7.3.4",
     "@tailwindcss/vite": "^4.1.16",
+    "primeicons": "^7.0.0",
+    "primereact": "^10.9.7",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-transition-group": "^4.4.5",
     "tailwindcss": "^4.1.16"
   },
   "devDependencies": {
