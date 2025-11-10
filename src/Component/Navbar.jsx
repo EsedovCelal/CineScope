@@ -3,31 +3,27 @@ import Menu from "./Menu";
 import { Dropdown } from "primereact/dropdown";
 import { useState, useEffect } from "react";
 import { InputText } from "primereact/inputtext";
+
 const Navbar = () => {
   const options = ["All", "Games", "Movies", "Tv series"];
   const [dropItem, setDropItem] = useState(null);
   const [inputItem, setInputItem] = useState(null);
-  const [data, setData] = useState(null);
+  const [externalData, setExternalData] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  useEffect(() => {
-    fetch("https://www.omdbapi.com/?s=avengers&apikey=382f90b0")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok ");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setData(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error.massage);
-        setLoading(false);
-      });
-  }, []);
-  console.log(data.Search);
+  const handleSearch = async () => {
+    try {
+      const res = await fetch(
+        `http://localhost:3000/api/data?query=${InputText}`
+      );
+      const data = await res.json();
+      setExternalData(data);
+    } catch (error) {
+      setError(error.massage);
+      setLoading(false);
+    }
+  };
+  console.log(externalData.results);
   return (
     <div className="bg-[black] w-300 text-[white] h-20 flex items-center">
       <img className="h-7 w-20 rounded-lg" src={temp_logo} />
@@ -68,9 +64,13 @@ const Navbar = () => {
               clipRule="evenodd"
             />
           </svg>
+          <button onClick={handleSearch}>find</button>
         </div>
       </div>
     </div>
   );
 };
 export default Navbar;
+//478dc71d037549c58732b720314df28d gamebrain api key
+//382f90b0 omdb api key
+//08eef91c5a865641cc85ae7b771d4002f78ef3cb gaint bomb api key
