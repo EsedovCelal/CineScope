@@ -1,5 +1,4 @@
 import TabbedInterface from "./TabbedInterface";
-import Tab from "./Tab";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { ChevronsRight } from "lucide-react";
@@ -75,7 +74,7 @@ const Character_for_id = () => {
         )}
       </div>
       <TabbedInterface Wiki_info={id_data.description} />
-      <Tab />
+
       <div />
     </div>
   );

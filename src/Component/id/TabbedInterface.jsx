@@ -1,6 +1,19 @@
 import { useState, useEffect } from "react";
+import Character_wiki from "./Character_wiki";
 
 const TabbedInterface = (Wiki_info) => {
+  const renderContent = () => {
+    switch (activeTab.id) {
+      case "wiki":
+        return <div>Wiki Content</div>;
+      case "about":
+        return <div>About Content</div>;
+      default:
+        return <div>Default Content</div>;
+    }
+  };
+  const wiki = Wiki_info.Wiki_info;
+  /*   console.log(wiki); */
   const tabs = [
     {
       id: "wiki",
@@ -54,10 +67,9 @@ const TabbedInterface = (Wiki_info) => {
   };
 
   const activeTabData = tabs.find((tab) => tab.id === activeTab);
-  console.log(Wiki_info.Wiki_info);
   return (
     <div className="">
-      <div className="max-w-5xl mx-auto bg-white shadow-lg overflow-hidden">
+      <div className="max-w-5xl mx-auto shadow-lg overflow-hidden">
         {/* Tab Headers */}
         <div className="flex ">
           {tabs.map((tab) => (
@@ -75,20 +87,13 @@ const TabbedInterface = (Wiki_info) => {
           ))}
         </div>
 
-        {/* Tab Content */}
-        {activeTab.id === "wiki" || (
-          <div
-            className="p-8"
-            dangerouslySetInnerHTML={{ __html: Wiki_info.Wiki_info }}
-          />
-        )}
         <div className="p-8">
           <h2 className="text-3xl font-bold text-gray-800 mb-4">
             {activeTabData.label}
           </h2>
-          <p className="text-gray-600 text-lg leading-relaxed">
-            {activeTabData.content}
-          </p>
+          <div className="text-gray-600 text-lg leading-relaxed">
+            {renderContent()}
+          </div>
         </div>
       </div>
     </div>
