@@ -1,19 +1,24 @@
 import { useState, useEffect } from "react";
-import Character_wiki from "./Character_wiki";
 
-const TabbedInterface = (Wiki_info) => {
+const TabbedInterface = ({ info_for_id, type }) => {
+  console.log(type);
   const renderContent = () => {
-    switch (activeTab.id) {
+    switch (activeTab) {
       case "wiki":
-        return <div>Wiki Content</div>;
-      case "about":
-        return <div>About Content</div>;
+        return (
+          <div dangerouslySetInnerHTML={{ __html: info_for_id.description }} />
+        );
+      case "video":
+        return <div>Video Content</div>;
+      case "images":
+        return <div>Images Content</div>;
+      case "forum":
+        return <div>Forum Content</div>;
       default:
         return <div>Default Content</div>;
     }
   };
-  const wiki = Wiki_info.Wiki_info;
-  /*   console.log(wiki); */
+
   const tabs = [
     {
       id: "wiki",
@@ -67,8 +72,9 @@ const TabbedInterface = (Wiki_info) => {
   };
 
   const activeTabData = tabs.find((tab) => tab.id === activeTab);
+
   return (
-    <div className="">
+    <div>
       <div className="max-w-5xl mx-auto shadow-lg overflow-hidden">
         {/* Tab Headers */}
         <div className="flex ">

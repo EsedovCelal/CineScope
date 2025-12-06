@@ -1,22 +1,22 @@
-import TabbedInterface from "./TabbedInterface";
+/* import TabbedInterface from "./TabbedInterface"; */
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { ChevronsRight } from "lucide-react";
 import { Link } from "@mui/material";
-const Character_for_id = () => {
+const Info_for_id = () => {
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const [id_data, setId_data] = useState([]);
   const [error, setError] = useState(null);
-
+  const type = id.slice(0, 4);
+  console.log(type);
   useEffect(() => {
     const fetch_for_id = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`http://localhost:3000/api/character/${id}`);
+        const res = await fetch(`http://localhost:3000/api/${id}`);
         const data = await res.json();
         setId_data(data.results);
-        console.log(data.results);
       } catch (error) {
         setError(error.message);
         console.error("Error:", error);
@@ -26,7 +26,6 @@ const Character_for_id = () => {
     };
     fetch_for_id();
   }, [id]);
-  console.log(id_data);
   return (
     <div>
       <div className="flex justify-center items-center h-80 bg-[#12151a]">
@@ -50,7 +49,7 @@ const Character_for_id = () => {
                   follow
                 </button>
               </div>
-              <div className="flex items-center mb-5">
+              {/*  <div className="flex items-center mb-5">
                 <p className="ml-10">CHARACTER</p>
                 <ChevronsRight size={18} />
                 <p>
@@ -64,7 +63,7 @@ const Character_for_id = () => {
                     {id_data.games.length} games
                   </Link>
                 </p>
-              </div>
+              </div> */}
               <div>
                 <div className="border-b border-[grey] ml-3"></div>
               </div>
@@ -73,10 +72,10 @@ const Character_for_id = () => {
           </div>
         )}
       </div>
-      <TabbedInterface Wiki_info={id_data.description} />
+      {/*       <TabbedInterface info_for_id={id_data} type={"Character"} /> */}
 
       <div />
     </div>
   );
 };
-export default Character_for_id;
+export default Info_for_id;

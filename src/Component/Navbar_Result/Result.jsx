@@ -12,7 +12,7 @@ const Result = ({ isFocused, externalData }) => {
       ) : (
         externalData.map((item, index) => (
           <Link
-            href={`/${item.resource_type}/${item.guid}/`}
+            href={`/${item.name.toLowerCase()}/${item.guid}/`}
             key={index}
             underline="none"
             color="white"
