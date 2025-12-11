@@ -31,26 +31,11 @@ app.get("/api/search", async (req, res) => {
   }
 });
 
-app.get("/api/:id", async (req, res) => {
-  // Info_for_id fetch
-  function getResourceType(id) {
-    const prefix = id.split("-")[0];
-    const RESOURCE_TYPES = {
-      3030: "game",
-      3005: "character",
-      3010: "company",
-      3025: "franchise",
-      /*     3025: "concept", */
-      3035: "object",
-      3060: "location",
-      3020: "person",
-    };
-    return RESOURCE_TYPES[prefix];
-  }
+app.get("/api/:type/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    const resourceType = getResourceType(id);
-    const externalUrl = `https://www.giantbomb.com/api/${resourceType}/${id}/?api_key=${apiKey}&format=json`;
+    const type = req.params.type;
+    const externalUrl = `https://api.rawg.io/api/${type}/${id}?key=${apiKey}&format=json`;
     const response = await axios.get(externalUrl, {
       headers: { "User-Agent": "MyGameApp/1.0" },
     });

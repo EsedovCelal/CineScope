@@ -5,18 +5,17 @@ import { ChevronsRight } from "lucide-react";
 import { Link } from "@mui/material";
 const Info_for_id = () => {
   const [loading, setLoading] = useState(false);
-  const { id } = useParams();
+  const { id, type } = useParams();
   const [id_data, setId_data] = useState([]);
   const [error, setError] = useState(null);
-  const type = id.slice(0, 4);
-  console.log(type);
+  console.log(id_data);
   useEffect(() => {
     const fetch_for_id = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`http://localhost:3000/api/${id}`);
+        const res = await fetch(`http://localhost:3000/api/${type}/${id}`);
         const data = await res.json();
-        setId_data(data.results);
+        setId_data(data);
       } catch (error) {
         setError(error.message);
         console.error("Error:", error);
@@ -36,7 +35,7 @@ const Info_for_id = () => {
             <div>
               <img
                 className="max-w-76 max-h-60 w-auto h-auto border border-[grey]"
-                src={id_data.image.small_url}
+                src={id_data.background_image}
                 alt={id_data.name}
               />
             </div>
