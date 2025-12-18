@@ -36,7 +36,7 @@ app.get("/api/:type/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const type = req.params.type;
-    const externalUrl = `https://api.rawg.io/api/${type}/${id}?key=${apiKey}&format=json`;
+    const externalUrl = `https://api.themoviedb.org/3/${type}/${id}?api_key=${apiKey}`;
     const response = await axios.get(externalUrl, {
       headers: { "User-Agent": "MyGameApp/1.0" },
     });
@@ -50,7 +50,3 @@ app.get("/api/:type/:id", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
-
-//478dc71d037549c58732b720314df28d gamebrain api key
-//382f90b0 omdb api key
-//08eef91c5a865641cc85ae7b771d4002f78ef3cb gaint bomb api key
