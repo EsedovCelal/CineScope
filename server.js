@@ -1,4 +1,4 @@
-const apiKey = `a28fc98e730d4403a657b9b9f174874a`;
+const apiKey = `0ec94bda00221f0e8e5e3eede835ad0f`;
 import express from "express";
 import axios from "axios";
 
@@ -17,13 +17,14 @@ app.use((req, res, next) => {
 app.get("/api/search", async (req, res) => {
   try {
     const query = req.query.query || "";
-    const resources = req.query.resources;
-    const externalUrl = `https://api.rawg.io/api/games?key=${apiKey}&format=json&search=${encodeURIComponent(
+    const resources = req.query.resources; // tags
+    const externalUrl = `https://api.themoviedb.org/3/search/multi?query=${encodeURIComponent(
       query
-    )}&resources=${encodeURIComponent(resources)}`;
-    const response = await axios.get(externalUrl, {
-      headers: { "User-Agent": "MyGameApp/1.0" },
-    });
+    )}&api_key=${apiKey}`;
+    /*const externalUrl = `https://api.rawg.io/api/games?key=${apiKey}&format=json&search=${encodeURIComponent(
+      query
+    )}&resources=${encodeURIComponent(resources)}`; */
+    const response = await axios.get(externalUrl);
     res.json(response.data);
   } catch (error) {
     console.error("Error fetching external API:", error);

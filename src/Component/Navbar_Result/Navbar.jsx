@@ -48,7 +48,7 @@ const Navbar = ({ setResult, setFocused }) => {
       );
       const data = await res.json();
       setLoading(false);
-      console.log(data.results);
+      console.log(data);
       setResult(data.results);
     } catch (error) {
       setError(error.message);
