@@ -1,14 +1,14 @@
 const Log_in = () => {
   return (
     <div className="flex justify-center items-center">
-      <div>
+      <div className="flex">
         <label for="username">
           Username:
-          <input type="text" />
+          <input className="border" type="text" />
         </label>
         <label for="password">
           password:
-          <input type="password" />
+          <input className="border" type="password" />
         </label>
       </div>
     </div>

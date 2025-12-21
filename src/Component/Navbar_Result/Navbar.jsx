@@ -9,17 +9,7 @@ const Navbar = ({ setResult, setFocused }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isOpenOptions, setIsOpenOptions] = useState(false);
   const [tags, setTags] = useState([]);
-  const options = [
-    "game",
-    "franchise",
-    "character",
-    "concept",
-    "object",
-    "location",
-    "person",
-    "company",
-    "video",
-  ];
+  const options = ["movie", "tv"];
 
   const addTag = (option) => {
     if (!tags.includes(option)) {
@@ -65,7 +55,7 @@ const Navbar = ({ setResult, setFocused }) => {
       >
         <div className="h-20 flex items-center">
           <Link href="/" className="text-2xl" underline="none" color="white">
-            myGs.
+            CineScope.
           </Link>
           <div className="ml-2">
             <button

@@ -1,14 +1,14 @@
-/* import TabbedInterface from "./TabbedInterface"; */
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { ChevronsRight } from "lucide-react";
-import { Link } from "@mui/material";
+
 const Info_for_id = () => {
   const [loading, setLoading] = useState(false);
   const { id, type } = useParams();
-  const [id_data, setId_data] = useState([]);
+  const [id_data, setId_data] = useState(null); // Changed from [] to null
   const [error, setError] = useState(null);
+
   console.log(id_data);
+
   useEffect(() => {
     const fetch_for_id = async () => {
       try {
@@ -24,57 +24,64 @@ const Info_for_id = () => {
       }
     };
     fetch_for_id();
-  }, [id]);
+  }, [id, type]);
+
   return (
     <div>
       <div
-        className={`bg-[url('https://image.tmdb.org/t/p/w300_and_h450_face${id_data.backdrop_path}')] bg-cover bg-center bg-no-repeat w-full h-64`}
+        className="bg-cover bg-top bg-no-repeat h-[500px] w-full relative"
+        style={{
+          backgroundImage: id_data?.backdrop_path
+            ? `url('https://image.tmdb.org/t/p/original${id_data.backdrop_path}')`
+            : "none",
+        }}
       >
-        <div className="flex justify-center items-center h-[500px] bg-[#12151a]">
-          {!id_data || id_data.length === 0 ? (
-            <p> COMING...</p>
+        <div className="absolute inset-0 bg-black/60" /> {/* Dark overlay */}
+        <div className="relative z-10 flex justify-center items-center h-full">
+          {loading ? (
+            <p className="text-white">Loading...</p>
+          ) : !id_data ? (
+            <p className="text-white">COMING...</p>
           ) : (
-            <div className="flex max-w-6xl">
-              <div>
+            <div className="flex max-w-6xl gap-6">
+              <div className="flex-shrink-0">
                 <img
-                  className=""
-                  src={`https://image.tmdb.org/t/p/w300_and_h450_face${id_data.poster_path}`}
-                  alt={id_data.title}
+                  className="rounded-lg shadow-lg"
+                  src={`https://image.tmdb.org/t/p/w300${id_data.poster_path}`}
+                  alt={id_data.title || id_data.name}
                 />
               </div>
-              <div>
-                <div className="flex justify-between ">
-                  <p className="text-3xl mb-5 ml-10 hover:text-[grey] cursor-pointer">
-                    {id_data.title}
-                  </p>
-                  <button className="border border-[grey] h-full cursor-pointer w-30">
-                    follow
+              <div className="text-white">
+                <div className="flex justify-between items-start gap-4">
+                  <div className="flex gap-1">
+                    <h1 className="text-3xl font-bold hover:text-gray-300 cursor-pointer">
+                      {id_data.title || id_data.name}
+                    </h1>
+                    {(id_data.release_date || id_data.first_air_date) && (
+                      <h1 className="text-3xl">
+                        (
+                        {(id_data.release_date || id_data.first_air_date).slice(
+                          0,
+                          4
+                        )}
+                        )
+                      </h1>
+                    )}
+                  </div>
+                  <button className="border border-gray-400 px-4 py-2 rounded hover:bg-white hover:text-black transition">
+                    Follow
                   </button>
                 </div>
-                {/*  <div className="flex items-center mb-5">
-                <p className="ml-10">CHARACTER</p>
-                <ChevronsRight size={18} />
-                <p>
-                  appears in{" "}
-                  <Link
-                    href={""}
-                    underline="none"
-                    color="orange"
-                    cursor="pointer"
-                  >
-                    {id_data.games.length} games
-                  </Link>
+                <p className="font-bold mt-5">
+                  {id_data.overview || id_data.deck}
                 </p>
-              </div> */}
-                <p className="font-bold ml-10 mt-3">{id_data.deck}</p>
               </div>
             </div>
           )}
         </div>
       </div>
-      {/*       <TabbedInterface info_for_id={id_data} type={"Character"} /> */}
-      <div />
     </div>
   );
 };
+
 export default Info_for_id;
