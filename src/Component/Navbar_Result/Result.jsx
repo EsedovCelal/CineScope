@@ -1,12 +1,17 @@
 import { useState } from "react";
 import { Link } from "@mui/material";
 import { useEffect } from "react";
+import SearchIcon from "@mui/icons-material/Search";
 
 const Result = ({ isFocused, externalData }) => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {}, [isFocused]);
   return (
-    <div className={`${!isFocused && "hidden"} flex flex-col items-center`}>
+    <div
+      className={`${
+        !isFocused && "hidden"
+      } flex flex-col items-center bg-[#12151a]`}
+    >
       {!externalData || externalData.length === 0 ? (
         <p>COMING...</p>
       ) : (
@@ -16,14 +21,14 @@ const Result = ({ isFocused, externalData }) => {
             key={index}
             underline="none"
             color="white"
-            className="w-[90%]"
+            className="w-[70%]"
             onHover={() => setTextColor("orange")}
           >
-            <div className="pb-1 flex h-11 items-center bg-[#12151a] border-b border-[grey] p-2 border-1-solid hover:bg-[#1e2227]">
-              {}
+            <div className="pb-1 flex h-6 items-center  border-b border-[grey] p-2 border-1-solid hover:bg-[#1e2227]">
+              <SearchIcon />
               <h1 className={`ml-2 hover:text-[orange]`}>
                 {item.title || item.name}
-              </h1>{" "}
+              </h1>
               -<p>{item.media_type}</p>
             </div>
           </Link>
