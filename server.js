@@ -17,10 +17,10 @@ app.use((req, res, next) => {
 app.get("/api/search", async (req, res) => {
   try {
     const query = req.query.query || "";
-    const resources = req.query.resources; // tags
-    const externalUrl = `https://api.themoviedb.org/3/search/multi?query=${encodeURIComponent(
-      query
-    )}&api_key=${apiKey}`;
+    const type = req.query.type; // tags
+    const externalUrl = `https://api.themoviedb.org/3/search/${
+      type || "multi"
+    }?query=${encodeURIComponent(query)}&api_key=${apiKey}`;
     /*const externalUrl = `https://api.rawg.io/api/games?key=${apiKey}&format=json&search=${encodeURIComponent(
       query
     )}&resources=${encodeURIComponent(resources)}`; */
@@ -46,6 +46,8 @@ app.get("/api/:type/:id", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch external data" });
   }
 });
+
+app.get("/api/");
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

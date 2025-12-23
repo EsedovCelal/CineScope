@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "@mui/material";
 
 const Info_for_id = () => {
   const [loading, setLoading] = useState(false);
@@ -72,9 +73,36 @@ const Info_for_id = () => {
                     Follow
                   </button>
                 </div>
-                <p className="font-bold mt-5">
-                  {id_data.overview || id_data.deck}
-                </p>
+                <div className="flex">
+                  {id_data.genres.map((genre, index) => (
+                    <span key={genre.id}>
+                      <Link
+                        color="common.white"
+                        underline="none"
+                        sx={{
+                          "&:hover": {
+                            textDecoration: "underline",
+                            color: "grey.400",
+                            cursor: "pointer",
+                          },
+                        }}
+                      >
+                        {genre.name}
+                      </Link>
+                      {index < id_data.genres.length - 1 && " and "}
+                    </span>
+                  ))}
+                </div>
+                <div></div>
+                <div></div>
+                <div>
+                  <p>{id_data.tagline}</p>
+                </div>
+                <div>
+                  <p className="font-bold mt-5 text-xl mb-2.5">Overview</p>
+                  <h1>{id_data.overview || id_data.deck}</h1>
+                </div>
+                <div></div>
               </div>
             </div>
           )}

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "@mui/material";
 import { X, ChevronDown } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = ({ setResult, setFocused }) => {
   const [inputItem, setInputItem] = useState(null);
@@ -10,6 +11,7 @@ const Navbar = ({ setResult, setFocused }) => {
   const [isOpenOptions, setIsOpenOptions] = useState(false);
   const [tags, setTags] = useState([]);
   const options = ["movie", "tv"];
+  const navigate = useNavigate();
 
   const addTag = (option) => {
     if (!tags.includes(option)) {
@@ -130,6 +132,14 @@ const Navbar = ({ setResult, setFocused }) => {
               placeholder="Search you game"
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  navigate(
+                    `/search?query=${encodeURIComponent(e.target.value)}`
+                  );
+                }
+                setResult([]);
+              }}
             />
           </div>
           <div className="w-50">
