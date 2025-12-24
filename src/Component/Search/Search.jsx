@@ -4,7 +4,7 @@ import { Link } from "@mui/material";
 
 const Search = () => {
   const [selectedItem, setSelectedItem] = useState("movie");
-  const [inputItem, setInputItem] = useState("kill bill");
+  const [inputItem, setInputItem] = useState("");
   const [result, setResult] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -66,11 +66,15 @@ const Search = () => {
   return (
     <div className="">
       <div>
-        <input className="full" type="text" />
+        <input
+          className="w-full"
+          type="text"
+          onChange={(e) => setInputItem(e.target.value)}
+        />
       </div>
       <div className="flex justify-center">
-        <div className="w-[70%] flex justify-between">
-          <div className="max-w-100 max-h-300">
+        <div className="w-[70%] gap-10 flex justify-between">
+          <div className="w-50 ">
             <div className="">
               {items.map((item) => {
                 const isSelected = selectedItem === item.id;
@@ -78,7 +82,7 @@ const Search = () => {
                   <div
                     key={item.id}
                     onClick={() => handleSelect(item.id)}
-                    className={`
+                    className={`pl-5
                   bg-white rounded-lg shadow-md cursor-pointer
                   transition-all duration-200 border-2
                   ${
@@ -100,17 +104,19 @@ const Search = () => {
               })}
             </div>
           </div>
-          <div>
-            {result.map((item, index) => (
-              <div className="border">
-                <img
-                  className="rounded-lg shadow-lg"
-                  src={`https://image.tmdb.org/t/p/w300${item.poster_path}`}
-                  alt={item.title || item.name}
-                />
-                <p>{item.title || item.name}</p>
-              </div>
-            ))}
+          <div className="w-full">
+            {result &&
+              result.map((item, index) => (
+                <div className="border flex mb-5">
+                  <img
+                    className="rounded-lg shadow-lg"
+                    src={`https://image.tmdb.org/t/p/w92${item.poster_path}`}
+                    alt={item.title || item.name}
+                  />
+                  <p>{item.title || item.name}</p>
+                  <p className="line-clamp-2">{item.overview}</p>
+                </div>
+              ))}
           </div>
         </div>
       </div>
